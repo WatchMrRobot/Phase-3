@@ -19,6 +19,8 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton registerButton = new JButton("REGISTER");
     JCheckBox show = new JCheckBox("Show Password");
     JLabel test = new JLabel("TEST");
+  	String[] choices = { "Patient", "Doctor", "Nurse"};
+    final JComboBox<String> cb = new JComboBox<String>(choices);
     
     LoginFrame() {
         setLayoutManager();
@@ -39,6 +41,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         show.setBounds(150, 250, 150, 30);
         loginButton.setBounds(150, 160, 125, 50);
         registerButton.setBounds(300, 160, 125, 50);
+        cb.setBounds(300, 240, 125, 50);
         //test.setBounds(200, 50, 300, 25);
     }
 
@@ -51,6 +54,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         container.add(loginButton);
         container.add(registerButton);
         container.add(test);
+        container.add(cb);
         //Date date = new Date(88, 04, 19);
         //SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         //test.setText(s.format(date));
