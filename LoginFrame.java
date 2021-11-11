@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton registerButton = new JButton("REGISTER");
     JCheckBox show = new JCheckBox("Show Password");
     JLabel test = new JLabel("TEST");
+    Home patient = new Home();
     
     public LoginFrame() {
         setLayoutManager();

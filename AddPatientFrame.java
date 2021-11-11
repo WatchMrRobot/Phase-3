@@ -5,6 +5,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -126,6 +129,7 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     		        test.WriteToPatient(nameText, nameText);
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
+    		        test.WriteToDoctors(nameText, DOBText, IDText);
     		        String addressText = addressF.getText();
     	            JOptionPane.showMessageDialog(this, "Patient Added to Database");
     	            super.setVisible(false);

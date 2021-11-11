@@ -1,10 +1,13 @@
 package application;
 
 import java.awt.Color;
+
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.DefaultListModel;
@@ -16,12 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.util.Scanner;
+
 import application.PatientManagement;
 
 public class Home extends JFrame implements ActionListener 
 {
     Container container = getContentPane();
-    JButton openPatient = new JButton("Open Patient");
+    JButton openPatient = new JButton("Upload patient files");
     JButton addPatient = new JButton("Add Patient");
     JButton editPatient = new JButton("Edit Patient");
     JButton addPatient2 = new JButton("Add Patient");
@@ -43,7 +48,6 @@ public class Home extends JFrame implements ActionListener
   	JPanel panel = new JPanel();
   	WriteToFile x = new WriteToFile();
 	public static PatientManagement patientManager = new PatientManagement();
-	
 	Home()
 	{
         setLayoutManager();
@@ -108,10 +112,43 @@ public class Home extends JFrame implements ActionListener
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
     }
+    public void ReadFile() throws FileNotFoundException 
+	{
+		File read = new File("Patient.txt");
+		if(read.exists() == true)
+		{
+			Scanner reader = new Scanner(read);
+			while(reader.hasNextLine() != false)
+			{
+				Patient ReturningPatient = new Patient();
+				String name = reader.nextLine();
+				String DOB = reader.nextLine();
+				String ID = reader.nextLine();
+				int Date = Integer.parseInt(DOB);
+				int Identification = Integer.parseInt(ID);
+				ReturningPatient.setName(name);
+				ReturningPatient.setDOB(Date);
+				ReturningPatient.setID(Identification);
+				patientManager.addPatient(ReturningPatient);
+				listModel.addElement(ReturningPatient);
+			}
+			info.setText("Patient records have been uploaded");
+			reader.close();
+		}
+		else
+		{
+			info.setText("No records available to upload");
+		}
+	}
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == openPatient) {
+        	   try {
+					ReadFile();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 
         }
 
