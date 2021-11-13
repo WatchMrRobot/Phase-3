@@ -126,9 +126,9 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     		        userText = userF.getText();
     		        pwdText = passF.getText();
     		        String nameText = nameF.getText();
-    		        test.WriteToPatient(nameText, nameText);
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
+    		        test.WriteToPatient(nameText, nameText,DOBText,IDText);
     		        test.WriteToDoctors(nameText, DOBText, IDText);
     		        String addressText = addressF.getText();
     	            JOptionPane.showMessageDialog(this, "Patient Added to Database");

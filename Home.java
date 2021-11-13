@@ -47,6 +47,7 @@ public class Home extends JFrame implements ActionListener
   	JLabel label3 = new JLabel("ID Number:");
   	JPanel panel = new JPanel();
   	WriteToFile x = new WriteToFile();
+  	int test = 0;
 	public static PatientManagement patientManager = new PatientManagement();
 	Home()
 	{
@@ -115,7 +116,7 @@ public class Home extends JFrame implements ActionListener
     public void ReadFile() throws FileNotFoundException 
 	{
 		File read = new File("Patient.txt");
-		if(read.exists() == true)
+		if(read.exists() == true && test == 0)
 		{
 			Scanner reader = new Scanner(read);
 			while(reader.hasNextLine() != false)
@@ -134,10 +135,15 @@ public class Home extends JFrame implements ActionListener
 			}
 			info.setText("Patient records have been uploaded");
 			reader.close();
+			test = 1;
 		}
-		else
+		else if(read.exists() != true)
 		{
 			info.setText("No records available to upload");
+		}
+		else if(test == 1)
+		{
+			info.setText("Patient files have already been uploaded.");
 		}
 	}
     
@@ -229,7 +235,8 @@ public class Home extends JFrame implements ActionListener
         		Patient temp;
         		temp = listModel.getElementAt(list.getSelectedIndex());
         		try {
-					x.DeletePatient(temp.getName());
+					x.DeletePatient(temp.getID());
+					x.DeleteFromPatientFile(temp.getName(), temp.getID());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
