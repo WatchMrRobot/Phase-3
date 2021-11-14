@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.*;
+
 
 public class LoginFrame extends JFrame implements ActionListener {
 
@@ -73,6 +75,12 @@ public class LoginFrame extends JFrame implements ActionListener {
             String pwdText;
             userText = userF.getText();
             pwdText = passF.getText();
+            
+            
+            
+            
+            //HERE IS WHERE WE MUST READ TXT FILES TO SEE IF IT MATCHES
+            
             if (userText.equalsIgnoreCase("A") && pwdText.equalsIgnoreCase("1")) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 super.setVisible(false);

@@ -17,6 +17,13 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class RegisterFrame extends JFrame implements ActionListener {
@@ -124,6 +131,13 @@ public class RegisterFrame extends JFrame implements ActionListener {
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
     		        String addressText = addressF.getText();
+    		        File file = new File("AdminLogin.txt");
+    		        FileWriter fr = new FileWriter(file, true);
+    		        BufferedWriter br = new BufferedWriter(fr);
+    		        br.write(userText+ " "+pwdText+ "\n");
+    		        br.close();
+    		        fr.close();
+    		        
     	            JOptionPane.showMessageDialog(this, "Account Added to Database");
     	            super.setVisible(false);
             	} //end of try
