@@ -131,7 +131,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
     		        String addressText = addressF.getText();
-    		        File file = new File("AdminLogin.txt");
+    		        File file = new File("PatientLogin.txt");
     		        FileWriter fr = new FileWriter(file, true);
     		        BufferedWriter br = new BufferedWriter(fr);
     		        br.write(userText+ " "+pwdText+ "\n");

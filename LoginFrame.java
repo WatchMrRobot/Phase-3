@@ -80,7 +80,6 @@ public class LoginFrame extends JFrame implements ActionListener {
             
             
             //HERE IS WHERE WE MUST READ TXT FILES TO SEE IF IT MATCHES
-            
             if (userText.equalsIgnoreCase("A") && pwdText.equalsIgnoreCase("1")) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 super.setVisible(false);
@@ -90,7 +89,8 @@ public class LoginFrame extends JFrame implements ActionListener {
                 newHome.setBounds(700, 400, 900, 600);
                 newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 newHome.setResizable(false);
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }
         }
