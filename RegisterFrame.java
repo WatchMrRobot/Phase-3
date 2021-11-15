@@ -38,9 +38,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     JButton cancelButton = new JButton("CANCEL");
     JCheckBox show = new JCheckBox("Show Password");
   	JLabel info = new JLabel("Please enter account details");
-  	String[] choices = { "Patient", "Doctor", "Nurse"};
-    final JComboBox<String> cb = new JComboBox<String>(choices);
-    
+  	
     RegisterFrame()
 	{
     	setLayoutManager();
@@ -73,7 +71,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
     	Font font = new Font("Verdana", Font.BOLD, 14);
     	info.setFont(font);
     	info.setForeground(Color.RED);
-        cb.setBounds(300, 400, 125, 50);
 	}
 	
 	private void addComponentsToContainer() {
@@ -93,7 +90,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         container.add(addButton);
         container.add(cancelButton);
         container.add(info);
-        container.add(cb);
 	}
 	
 	private void addActionEvent() {
