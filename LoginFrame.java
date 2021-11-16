@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,9 +19,10 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton registerButton = new JButton("REGISTER");
     JCheckBox show = new JCheckBox("Show Password");
     JLabel test = new JLabel("TEST");
-    Home patient = new Home();
+  	String[] choices = { "Patient", "Doctor", "Nurse"};
+    final JComboBox<String> cb = new JComboBox<String>(choices);
     
-    public LoginFrame() {
+    LoginFrame() {
         setLayoutManager();
         setPos();
         addComponentsToContainer();
@@ -41,6 +41,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         show.setBounds(150, 250, 150, 30);
         loginButton.setBounds(150, 160, 125, 50);
         registerButton.setBounds(300, 160, 125, 50);
+        cb.setBounds(300, 240, 125, 50);
         //test.setBounds(200, 50, 300, 25);
     }
 
@@ -53,6 +54,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         container.add(loginButton);
         container.add(registerButton);
         container.add(test);
+        container.add(cb);
         //Date date = new Date(88, 04, 19);
         //SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         //test.setText(s.format(date));
@@ -74,12 +76,26 @@ public class LoginFrame extends JFrame implements ActionListener {
             if (userText.equalsIgnoreCase("A") && pwdText.equalsIgnoreCase("1")) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 super.setVisible(false);
-                Home newHome = new Home();
-                newHome.setTitle("Patient Management System");
-                newHome.setVisible(true);
-                newHome.setBounds(700, 400, 900, 600);
-                newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newHome.setResizable(false);
+                if (cb.getSelectedItem() == "Patient")
+                {
+                	PatientHome newHome = new PatientHome();
+                    newHome.setTitle("Patient Management System (PATIENT)");
+                    newHome.setVisible(true);
+                    newHome.setBounds(700, 400, 900, 600);
+                    newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newHome.setResizable(false);
+                }
+                else
+                {
+                	Home newHome = new Home();
+                    newHome.setTitle("Patient Management System (STAFF)");
+                    newHome.setVisible(true);
+                    newHome.setBounds(700, 400, 900, 600);
+                    newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newHome.setResizable(false);
+                }
+                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }
