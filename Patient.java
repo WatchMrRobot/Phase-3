@@ -17,6 +17,8 @@ public class Patient
      private int cholesterol;
      private String vaccinations;
      private String conditions;
+     private String ActiveIllnesses;
+
      
      public static int counter;
      
@@ -34,6 +36,9 @@ public class Patient
            cholesterol = 0;
            vaccinations = "none";
            conditions = "none";
+
+           ActiveIllnesses = "none";
+
            counter++;
      }
      
@@ -54,6 +59,7 @@ public class Patient
          this.DOB = DOB;
          this.ID = ID;
          this.address = addy;
+
          username = "?";
          password = "?";
          this.height = h;
@@ -65,6 +71,26 @@ public class Patient
          counter++;
      }
      
+
+     public Patient(String name, int DOB, int ID, String addy, int h, int w, int BP, int chol, String vacc, String conds, String ActiveIllnesses)
+     {
+         this.name = name;
+         this.DOB = DOB;
+         this.ID = ID;
+         this.address = addy;
+         username = "?";
+         password = "?";
+         this.height = h;
+         this.weight = w;
+         this.bloodPressure = BP;
+         this.cholesterol = chol;
+         this.vaccinations = vacc;
+         this.conditions = conds;
+         this.ActiveIllnesses = ActiveIllnesses;
+         counter++;
+     }
+     
+
      public String getName()
      {
            return name;
@@ -105,6 +131,12 @@ public class Patient
      {
            return conditions;
      }
+
+     public String getActiveIllnesses()
+     {
+           return ActiveIllnesses;
+     }
+]
      public void setName(String name)
      {
            this.name = name;
@@ -153,8 +185,17 @@ public class Patient
      {
     	 this.conditions = conds;
      }
+
+     public void setActiveIllnesses(String ActiveIllnesses)
+     {
+           this.ActiveIllnesses = ActiveIllnesses;
+     }
+]
      public String toString()
      {
            return "Name: " + name + "     DOB: " + DOB + "     ID: " + ID; 
      }
+
+     
 }
+

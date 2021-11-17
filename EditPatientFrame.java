@@ -1,46 +1,40 @@
 package application;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 
 public class EditPatientFrame extends JFrame implements ActionListener {
 
     Container container = getContentPane();
-    JLabel userL = new JLabel("USERNAME");
-    JLabel passL = new JLabel("PASSWORD");
-    JLabel nameL = new JLabel("NAME");
-    JLabel DOBL = new JLabel("DOB");
-    JLabel IDL = new JLabel("ID");
+
+    JLabel nameL = new JLabel("Name");
     JLabel addressL = new JLabel("ADDRESS");
-    
+
     JLabel heightL = new JLabel("HEIGHT(inches)");
     JLabel weightL = new JLabel("WEIGHT(lbs)");
     JLabel bloodPressureL = new JLabel("BLOOD PRESSURE");
     JLabel cholesterolL = new JLabel("CHOLESTEROL");
     JLabel vaccinationsL = new JLabel("VACCINATIONS");
     JLabel conditionsL = new JLabel("CONDITIONS");
+
+    JLabel ActiveIllnessesL = new JLabel("Active Illnesses");
     
-    JTextField userF = new JTextField("A");
-    JPasswordField passF = new JPasswordField("1");
+    
     JTextField nameF = new JTextField("N");
-    JTextField DOBF = new JTextField("D");
-    JTextField IDF = new JTextField("I");
+
     JTextField addressF = new JTextField("ADDRESS");
     
     JTextField heightF = new JTextField("HEIGHT");
@@ -49,36 +43,42 @@ public class EditPatientFrame extends JFrame implements ActionListener {
     JTextField cholesterolF = new JTextField("CHOLESTEROL");
     JTextField vaccinationsF = new JTextField("VACCINATIONS");
     JTextField conditionsF = new JTextField("CONDITIONS");
+    JTextField ActiveIllnessesF = new JTextField("Active Illnesses");
     
-    JButton editButton = new JButton("EDIT PATIENT");
-    JButton cancelButton = new JButton("CANCEL");
+    
+    JButton editButton = new JButton("Edit Patient");
+    JButton cancelButton = new JButton("Cancel");
+
     JCheckBox show = new JCheckBox("Show Password");
   	JLabel info = new JLabel("Please enter patient details");
   	
     EditPatientFrame(Patient patient)
 	{
         String name = patient.getName();
-        int DOB = patient.getDOB();
-        int ID = patient.getID();
         int height = patient.getHeight();
         int weight = patient.getWeight();
         int bloodPressure = patient.getBloodPressure();
         int cholesterol = patient.getCholesterol();
         String vaccinations = patient.getVaccinations();
         String conditions = patient.getConditions();
+
+        String ActiveIllnesses = patient.getActiveIllnesses();
+
     	setLayoutManager();
         setPos();
         addComponentsToContainer();
         addActionEvent();
         nameF.setText(name);
-        DOBF.setText(Integer.toString(DOB));
-        IDF.setText(Integer.toString(ID));
         heightF.setText(Integer.toString(height));
         weightF.setText(Integer.toString(weight));
         bloodPressureF.setText(Integer.toString(bloodPressure));
         cholesterolF.setText(Integer.toString(cholesterol));
         vaccinationsF.setText(vaccinations);
         conditionsF.setText(conditions);
+
+        ActiveIllnessesF.setText(ActiveIllnesses);
+       
+
 	}
 	
 	private void setLayoutManager() {
@@ -86,36 +86,33 @@ public class EditPatientFrame extends JFrame implements ActionListener {
 	}
 
 	private void setPos() {
-        userL.setBounds(150, 100, 100, 35);
-        passL.setBounds(150, 140, 100, 35);
-        nameL.setBounds(150, 180, 100, 35);
-        DOBL.setBounds(150, 220, 100, 35);
-        IDL.setBounds(150, 260, 100, 35);
-        addressL.setBounds(150, 300, 100, 35);
+
+        nameL.setBounds(150, 100, 100, 35);
+       addressL.setBounds(150, 140, 100, 35);        
+        heightL.setBounds(150, 180, 100, 35);
+        weightL.setBounds(150, 220, 100, 35);
+        bloodPressureL.setBounds(150, 260, 100, 35);
+        cholesterolL.setBounds(150, 300, 100, 35);
+        vaccinationsL.setBounds(150, 340, 100, 35);
+        conditionsL.setBounds(150, 380, 100, 35);
+        ActiveIllnessesL.setBounds(150, 420, 100, 35);
         
-        heightL.setBounds(150, 340, 100, 35);
-        weightL.setBounds(150, 380, 100, 35);
-        bloodPressureL.setBounds(150, 420, 100, 35);
-        cholesterolL.setBounds(150, 460, 100, 35);
-        vaccinationsL.setBounds(150, 500, 100, 35);
-        conditionsL.setBounds(150, 540, 100, 35);
         
-        userF.setBounds(250, 100, 175, 35);
-        passF.setBounds(250, 140, 175, 35);
-        nameF.setBounds(250, 180, 175, 35);
-        DOBF.setBounds(250, 220, 175, 35);
-        IDF.setBounds(250, 260, 175, 35);
-        addressF.setBounds(250, 300, 175, 35);
+        nameF.setBounds(250, 100, 175, 35);
+        addressF.setBounds(250, 140, 175, 35);     
+        heightF.setBounds(250, 180, 175, 35);
+        weightF.setBounds(250, 220, 175, 35);
+        bloodPressureF.setBounds(250, 260, 175, 35);
+        cholesterolF.setBounds(250, 300, 175, 35);
+        vaccinationsF.setBounds(250, 340, 175, 35);
+        conditionsF.setBounds(250, 380, 175, 35);
+        ActiveIllnessesF.setBounds(250, 420, 175, 35);
+
         
-        heightF.setBounds(250, 340, 175, 35);
-        weightF.setBounds(250, 380, 175, 35);
-        bloodPressureF.setBounds(250, 420, 175, 35);
-        cholesterolF.setBounds(250, 460, 175, 35);
-        vaccinationsF.setBounds(250, 500, 175, 35);
-        conditionsF.setBounds(250, 540, 175, 35);
         
-        show.setBounds(145, 630, 150, 30);
+        show.setBounds(150, 640, 150, 30);
         editButton.setBounds(150, 580, 125, 50);
+
         cancelButton.setBounds(300, 580, 125, 50);
     	info.setBounds(150, 20, 450, 35);
     	Font font = new Font("Verdana", Font.BOLD, 14);
@@ -124,11 +121,7 @@ public class EditPatientFrame extends JFrame implements ActionListener {
 	}
 	
 	private void addComponentsToContainer() {
-        container.add(userL);
-        container.add(passL);
         container.add(nameL);
-        container.add(DOBL);
-        container.add(IDL);
         container.add(addressL);
         
         container.add(heightL);
@@ -137,12 +130,12 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         container.add(cholesterolL);
         container.add(vaccinationsL);
         container.add(conditionsL);
+
+        container.add(ActiveIllnessesL);
         
-        container.add(userF);
-        container.add(passF);
+        
         container.add(nameF);
-        container.add(DOBF);
-        container.add(IDF);
+
         container.add(addressF);
         
         container.add(heightF);
@@ -151,8 +144,7 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         container.add(cholesterolF);
         container.add(vaccinationsF);
         container.add(conditionsF);
-        
-        container.add(show);
+        container.add(ActiveIllnessesF);       
         container.add(editButton);
         container.add(cancelButton);
         container.add(info);
@@ -161,11 +153,12 @@ public class EditPatientFrame extends JFrame implements ActionListener {
 	private void addActionEvent() {
         editButton.addActionListener(this);
         cancelButton.addActionListener(this);
-        show.addActionListener(this);
+       // show.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == editButton) 
         {
             boolean isEmptyFields = false;
@@ -229,13 +222,6 @@ public class EditPatientFrame extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Canceled Adding Patient to Database");
             super.setVisible(false);
         }
-        
-        if (e.getSource() == show) {
-            if (show.isSelected()) {
-                passF.setEchoChar((char) 0);
-            } else {
-                passF.setEchoChar('*');
-            }
-        }
+
 	}
 }
