@@ -19,13 +19,21 @@ public class WriteToFile {
 		patient.write(ID + "\n");	
 		patient.close();
 	} 
-	public void WriteToPatient(String name, String fileName, int DOB, int ID) throws IOException
+	public void WriteToPatient(String name, String fileName, int DOB, int ID, int weight, String BP, int Cholesterol, String Vaccinations, String Conditions, String Active) throws IOException
 	{
 		File write = new File(ID +".txt");
 		PrintWriter myWriter = new PrintWriter(new FileWriter(write, true));
 		myWriter.write(name + "\n");
 		myWriter.write(DOB + "\n");
 		myWriter.write(ID + "\n");
+		myWriter.write(weight + "\n");
+		myWriter.write(BP + "\n");
+		myWriter.write(Cholesterol + "\n");
+		myWriter.write(Vaccinations + "\n");
+		myWriter.write(Conditions + "\n");
+		myWriter.write(Active + "\n");
+		
+		
 		myWriter.close();
 	}
 	public void DeletePatient(int ID) throws IOException
@@ -72,4 +80,3 @@ public class WriteToFile {
 		temp.delete();
 	}
 }
-

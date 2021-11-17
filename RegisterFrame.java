@@ -88,7 +88,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
 	}
 	
 	private void addActionEvent() {
-        addButton.addActionListener(this);
+        addButton.addActionListener(this);	
         cancelButton.addActionListener(this);
         show.addActionListener(this);
 	}

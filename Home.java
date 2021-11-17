@@ -187,6 +187,7 @@ public class Home extends JFrame implements ActionListener
             			{
             				throw new Exception();
             			} 
+            			
             		} 
             		newPatient.setName(newName);
             		newPatient.setDOB(newDOB);
@@ -217,15 +218,54 @@ public class Home extends JFrame implements ActionListener
                 } 
                 catch (Exception E) {
                     // Catches generic exception and displays message
-                	info.setText("Patient was not added - Patient already exists. ");
+                	info.setText("Patient was not added - Patient ID duplicate. ");
                 }
             }
         }
        
        if (e.getSource() == editPatient) 
        {
-        	
+            //   Patient editPatient;
+              // int patientDOB = 0;
+               //int patientID = 0;
+               //String patientName = "?";
+               //boolean isEmptyFields = false;
+               
+               //If any field is empty, set isEmptyFields flag to true
+          //     if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
+            //   {
+               	// Display error message if there are empty fields
+              // 	isEmptyFields = true;
+               //	info.setText("Please fill all fields");
+               //}
+
+               // If all fields are filled, try to add 
+             //  if(!isEmptyFields) {
+              // 	try {
+   	        	//	patientName = textField1.getText();
+   	        		//patientDOB = Integer.parseInt(textField2.getText());
+   	        	//	patientID = Integer.parseInt(textField3.getText());
+               		Patient editPatient = new Patient();
+               		//for(int i = 0; i < patientManager.patientList.size(); i++)
+               		//{           			
+               			//if (patientManager.patientExists(patientName, patientDOB, patientID) > -1)
+               			//{
+                            JOptionPane.showMessageDialog(this, "Please Enter Additional Patient Information");
+                            super.setVisible(false);
+                            EditPatientFrame newEditFrame = new EditPatientFrame(editPatient);
+                            newEditFrame.setTitle("Patient Details");
+                            newEditFrame.setVisible(true);
+                            newEditFrame.setBounds(700, 400, 600, 700);
+                            newEditFrame.setResizable(false);
+               		//	}
+               		//}
+           //         } //end of try
+                  // catch (NumberFormatException E) {
+
+                   	//info.setText("Please enter integer values for Date of Birth and ID.");
+                 //  } 
        }
+                            
 
        if (e.getSource() == deletePatient2) 
        {
@@ -256,6 +296,5 @@ public class Home extends JFrame implements ActionListener
            newAppt.setBounds(700, 400, 600, 400);
            newAppt.setResizable(false);           
        }
-    }
-}
-
+    
+       }}	

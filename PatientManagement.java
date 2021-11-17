@@ -1,9 +1,12 @@
 package application;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class PatientManagement implements Serializable
@@ -17,14 +20,15 @@ public class PatientManagement implements Serializable
 		patientList = new ArrayList<Patient>();
 	}
 
-	public int patientExists(String patientName, int DOB, int ID) {
+	public int patientExists(String patientName, int DOB, int ID){
 		int temp = -1;
 		for (int i = 0; i < patientList.size(); i++)
 		{
-			if (patientList.get(i).getName().equals(patientName) && patientList.get(i).getDOB() == DOB && patientList.get(i).getID() == ID)
+			if (patientList.get(i).getID() == ID)
 			{
 				temp = i;
 			}
+			
 		}
 		return temp;
 	}
@@ -41,7 +45,7 @@ public class PatientManagement implements Serializable
 		return temp;
 	}
 
-	public boolean addPatient(Patient newPatient) {
+	public boolean addPatient(Patient newPatient){
 		boolean temp = true;
 		if (patientExists(newPatient.getName(), newPatient.getDOB(), newPatient.getID()) > -1)
 		{
