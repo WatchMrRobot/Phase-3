@@ -149,6 +149,16 @@ public class Home extends JFrame implements ActionListener
     
     @Override
     public void actionPerformed(ActionEvent e) {
+    
+    	if (e.getSource() == viewAppointments)
+    	{
+            ViewPastAppointmentsFrame viewAppt = new ViewPastAppointmentsFrame();
+            viewAppt.setTitle("Past Appointment Details");
+            viewAppt.setVisible(true);
+            viewAppt.setBounds(700, 400, 600, 400);
+            viewAppt.setResizable(true);   
+    	}
+	
         if (e.getSource() == openPatient) {
         	   try {
 					ReadFile();
