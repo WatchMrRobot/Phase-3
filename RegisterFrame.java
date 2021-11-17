@@ -17,6 +17,13 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class RegisterFrame extends JFrame implements ActionListener {
@@ -38,9 +45,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     JButton cancelButton = new JButton("CANCEL");
     JCheckBox show = new JCheckBox("Show Password");
   	JLabel info = new JLabel("Please enter account details");
-  	String[] choices = { "Patient", "Doctor", "Nurse"};
-    final JComboBox<String> cb = new JComboBox<String>(choices);
-    
+  	
     RegisterFrame()
 	{
     	setLayoutManager();
@@ -73,7 +78,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
     	Font font = new Font("Verdana", Font.BOLD, 14);
     	info.setFont(font);
     	info.setForeground(Color.RED);
-        cb.setBounds(300, 400, 125, 50);
 	}
 	
 	private void addComponentsToContainer() {
@@ -93,7 +97,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         container.add(addButton);
         container.add(cancelButton);
         container.add(info);
-        container.add(cb);
 	}
 	
 	private void addActionEvent() {
@@ -128,6 +131,13 @@ public class RegisterFrame extends JFrame implements ActionListener {
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
     		        String addressText = addressF.getText();
+    		        File file = new File("PatientLogin.txt");
+    		        FileWriter fr = new FileWriter(file, true);
+    		        BufferedWriter br = new BufferedWriter(fr);
+    		        br.write(userText+ " "+pwdText+ "\n");
+    		        br.close();
+    		        fr.close();
+    		        
     	            JOptionPane.showMessageDialog(this, "Account Added to Database");
     	            super.setVisible(false);
             	} //end of try

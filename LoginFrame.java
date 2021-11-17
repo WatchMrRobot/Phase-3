@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
+import java.io.*;
 
 public class LoginFrame extends JFrame implements ActionListener {
 
@@ -73,7 +75,44 @@ public class LoginFrame extends JFrame implements ActionListener {
             String pwdText;
             userText = userF.getText();
             pwdText = passF.getText();
-            if (userText.equalsIgnoreCase("A") && pwdText.equalsIgnoreCase("1")) {
+            File file = new File("AdminLogin.txt");
+            File file2 = new File("PatientLogin.txt");
+            int test =0;
+            try {
+				Scanner scanner = new Scanner(file);
+				Scanner scanner2 = new Scanner(file2);
+				String input	= userText + " " + pwdText;
+				
+				//first checks to see if it is in the AdminLogin.txt file
+	            if(cb.getSelectedItem() == "Patient")
+	            {
+					//It then checks to see if it is in the PatientLogin.txt file
+					while(scanner2.hasNextLine()) {
+						String currTest = scanner2.nextLine();
+						System.out.println(currTest);
+						System.out.println(input);
+						if(input.equals(currTest)) {
+							test =1;
+							break;
+						}	            	
+		            }
+	            } else
+	            {
+					while(scanner.hasNextLine()) {
+						String currTest = scanner.nextLine();
+						System.out.println(currTest);
+						System.out.println(input);
+						if(input.equals(currTest)) {
+							test =1;
+							break;
+						}	            	
+		            }
+	            }			
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            if (test==1) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 super.setVisible(false);
                 if (cb.getSelectedItem() == "Patient")
@@ -104,14 +143,28 @@ public class LoginFrame extends JFrame implements ActionListener {
         if (e.getSource() == registerButton) {
             //userF.setText("");
             //passF.setText("");
-            JOptionPane.showMessageDialog(this, "Registration");
-            //super.setVisible(false);
-            RegisterFrame newRegister = new RegisterFrame();
-            newRegister.setTitle("Patient Registration");
-            newRegister.setVisible(true);
-            newRegister.setBounds(700, 400, 600, 700);
-            newRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newRegister.setResizable(false);
+            if (cb.getSelectedItem() == "Patient")
+            {
+	        	JOptionPane.showMessageDialog(this, "Registration");
+	            //super.setVisible(false);
+	            RegisterFrame newRegister = new RegisterFrame();
+	            newRegister.setTitle("Patient Registration");
+	            newRegister.setVisible(true);
+	            newRegister.setBounds(700, 400, 600, 700);
+	            newRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	            newRegister.setResizable(false);
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Registration");
+                //super.setVisible(false);
+                AdminRegisterFrame newRegister = new AdminRegisterFrame();
+                newRegister.setTitle("Admin Registration");
+                newRegister.setVisible(true);
+                newRegister.setBounds(700, 400, 600, 700);
+                newRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newRegister.setResizable(false);
+            }
+            
         }
         
         if (e.getSource() == show) {

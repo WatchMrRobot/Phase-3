@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AddPatientFrame extends JFrame implements ActionListener {
+public class EditPatientFrame extends JFrame implements ActionListener {
 
     Container container = getContentPane();
     JLabel userL = new JLabel("USERNAME");
@@ -28,22 +28,44 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     JLabel DOBL = new JLabel("DOB");
     JLabel IDL = new JLabel("ID");
     JLabel addressL = new JLabel("ADDRESS");
+    
+    JLabel heightL = new JLabel("HEIGHT(inches)");
+    JLabel weightL = new JLabel("WEIGHT(lbs)");
+    JLabel bloodPressureL = new JLabel("BLOOD PRESSURE");
+    JLabel cholesterolL = new JLabel("CHOLESTEROL");
+    JLabel vaccinationsL = new JLabel("VACCINATIONS");
+    JLabel conditionsL = new JLabel("CONDITIONS");
+    
     JTextField userF = new JTextField("A");
     JPasswordField passF = new JPasswordField("1");
     JTextField nameF = new JTextField("N");
     JTextField DOBF = new JTextField("D");
     JTextField IDF = new JTextField("I");
     JTextField addressF = new JTextField("ADDRESS");
-    JButton addButton = new JButton("ADD PATIENT");
+    
+    JTextField heightF = new JTextField("HEIGHT");
+    JTextField weightF = new JTextField("WEIGHT");
+    JTextField bloodPressureF = new JTextField("BLOOD PRESSURE");
+    JTextField cholesterolF = new JTextField("CHOLESTEROL");
+    JTextField vaccinationsF = new JTextField("VACCINATIONS");
+    JTextField conditionsF = new JTextField("CONDITIONS");
+    
+    JButton editButton = new JButton("EDIT PATIENT");
     JButton cancelButton = new JButton("CANCEL");
     JCheckBox show = new JCheckBox("Show Password");
   	JLabel info = new JLabel("Please enter patient details");
   	
-    AddPatientFrame(Patient newPatient)
+    EditPatientFrame(Patient patient)
 	{
-        String name = newPatient.getName();
-        int DOB = newPatient.getDOB();
-        int ID = newPatient.getID();
+        String name = patient.getName();
+        int DOB = patient.getDOB();
+        int ID = patient.getID();
+        int height = patient.getHeight();
+        int weight = patient.getWeight();
+        int bloodPressure = patient.getBloodPressure();
+        int cholesterol = patient.getCholesterol();
+        String vaccinations = patient.getVaccinations();
+        String conditions = patient.getConditions();
     	setLayoutManager();
         setPos();
         addComponentsToContainer();
@@ -51,6 +73,12 @@ public class AddPatientFrame extends JFrame implements ActionListener {
         nameF.setText(name);
         DOBF.setText(Integer.toString(DOB));
         IDF.setText(Integer.toString(ID));
+        heightF.setText(Integer.toString(height));
+        weightF.setText(Integer.toString(weight));
+        bloodPressureF.setText(Integer.toString(bloodPressure));
+        cholesterolF.setText(Integer.toString(cholesterol));
+        vaccinationsF.setText(vaccinations);
+        conditionsF.setText(conditions);
 	}
 	
 	private void setLayoutManager() {
@@ -64,16 +92,32 @@ public class AddPatientFrame extends JFrame implements ActionListener {
         DOBL.setBounds(150, 220, 100, 35);
         IDL.setBounds(150, 260, 100, 35);
         addressL.setBounds(150, 300, 100, 35);
+        
+        heightL.setBounds(150, 340, 100, 35);
+        weightL.setBounds(150, 380, 100, 35);
+        bloodPressureL.setBounds(150, 420, 100, 35);
+        cholesterolL.setBounds(150, 460, 100, 35);
+        vaccinationsL.setBounds(150, 500, 100, 35);
+        conditionsL.setBounds(150, 540, 100, 35);
+        
         userF.setBounds(250, 100, 175, 35);
         passF.setBounds(250, 140, 175, 35);
         nameF.setBounds(250, 180, 175, 35);
         DOBF.setBounds(250, 220, 175, 35);
         IDF.setBounds(250, 260, 175, 35);
         addressF.setBounds(250, 300, 175, 35);
-        show.setBounds(150, 400, 150, 30);
-        addButton.setBounds(150, 340, 125, 50);
-        cancelButton.setBounds(300, 340, 125, 50);
-    	info.setBounds(150, 450, 450, 35);
+        
+        heightF.setBounds(250, 340, 175, 35);
+        weightF.setBounds(250, 380, 175, 35);
+        bloodPressureF.setBounds(250, 420, 175, 35);
+        cholesterolF.setBounds(250, 460, 175, 35);
+        vaccinationsF.setBounds(250, 500, 175, 35);
+        conditionsF.setBounds(250, 540, 175, 35);
+        
+        show.setBounds(145, 630, 150, 30);
+        editButton.setBounds(150, 580, 125, 50);
+        cancelButton.setBounds(300, 580, 125, 50);
+    	info.setBounds(150, 20, 450, 35);
     	Font font = new Font("Verdana", Font.BOLD, 14);
     	info.setFont(font);
     	info.setForeground(Color.RED);
@@ -86,27 +130,43 @@ public class AddPatientFrame extends JFrame implements ActionListener {
         container.add(DOBL);
         container.add(IDL);
         container.add(addressL);
+        
+        container.add(heightL);
+        container.add(weightL);
+        container.add(bloodPressureL);
+        container.add(cholesterolL);
+        container.add(vaccinationsL);
+        container.add(conditionsL);
+        
         container.add(userF);
         container.add(passF);
         container.add(nameF);
         container.add(DOBF);
         container.add(IDF);
         container.add(addressF);
+        
+        container.add(heightF);
+        container.add(weightF);
+        container.add(bloodPressureF);
+        container.add(cholesterolF);
+        container.add(vaccinationsF);
+        container.add(conditionsF);
+        
         container.add(show);
-        container.add(addButton);
+        container.add(editButton);
         container.add(cancelButton);
         container.add(info);
 	}
 	
 	private void addActionEvent() {
-        addButton.addActionListener(this);
+        editButton.addActionListener(this);
         cancelButton.addActionListener(this);
         show.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) 
+        if (e.getSource() == editButton) 
         {
             boolean isEmptyFields = false;
             
@@ -122,16 +182,21 @@ public class AddPatientFrame extends JFrame implements ActionListener {
             if(!isEmptyFields) {
             	try 
             	{
-    		        String userText;
-    		        String pwdText;
-    		        userText = userF.getText();
-    		        pwdText = passF.getText();
+    		        String userText = userF.getText();;
+    		        String pwdText = passF.getText();
     		        String nameText = nameF.getText();
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
     		        String addressText = addressF.getText();
-    	            JOptionPane.showMessageDialog(this, "Patient Added to Database");
-    	            super.setVisible(false);
+    		        int heightText = Integer.parseInt(heightF.getText());
+    		        int weightText = Integer.parseInt(weightF.getText());
+    		        int bloodPressureText = Integer.parseInt(bloodPressureF.getText());
+    		        int cholesterolText = Integer.parseInt(cholesterolF.getText());
+    		        String vaccinationsText = vaccinationsF.getText();
+    		        String conditionsText = conditionsF.getText();
+    		        
+    	            JOptionPane.showMessageDialog(this, "Patient Edited in Database");
+
             	} //end of try
     	        catch (NumberFormatException E) 
             	{
@@ -144,6 +209,20 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     	        	info.setText("Patient was not added - Patient already exists. ");
     	        }
             }
+	        String userText = userF.getText();;
+	        String pwdText = passF.getText();
+	        String nameText = nameF.getText();
+	        int DOBText = Integer.parseInt(DOBF.getText());
+	        int IDText = Integer.parseInt(IDF.getText());
+	        String addressText = addressF.getText();
+	        int heightText = Integer.parseInt(heightF.getText());
+	        int weightText = Integer.parseInt(weightF.getText());
+	        int bloodPressureText = Integer.parseInt(bloodPressureF.getText());
+	        int cholesterolText = Integer.parseInt(cholesterolF.getText());
+	        String vaccinationsText = vaccinationsF.getText();
+	        String conditionsText = conditionsF.getText();
+	        
+            super.setVisible(false);
         }
 		
         if (e.getSource() == cancelButton) {

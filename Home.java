@@ -28,7 +28,7 @@ public class Home extends JFrame implements ActionListener
     JButton addPatient2 = new JButton("Add Patient");
     JButton deletePatient2 = new JButton("Delete Patient");
     JButton deletePatient = new JButton("Delete Patient");
-    JButton addAppointment = new JButton("Add Appointment");
+    JButton viewAppointment = new JButton("View Appointments");
     DefaultListModel<Patient> listModel = new DefaultListModel<>();
     JList<Patient> list = new JList(listModel);
     JLabel listL = new JLabel("Patient List");
@@ -76,7 +76,7 @@ public class Home extends JFrame implements ActionListener
     	textField3.setBounds(640, 250, 200, 35);
         addPatient2.setBounds(640, 300, 200, 35);
         deletePatient2.setBounds(430, 300, 200, 35);
-        addAppointment.setBounds(430, 350, 200, 35);
+        viewAppointment.setBounds(430, 350, 200, 35);
     }
 
     public void addComponentsToContainer() {
@@ -95,7 +95,18 @@ public class Home extends JFrame implements ActionListener
         container.add(textField3);
         container.add(addPatient2);
         container.add(deletePatient2);
-        container.add(addAppointment);
+        container.add(viewAppointment);
+    }
+    public void editPatient(int selectedIndex, EditPatientFrame newEditFrame)
+    {
+    	 
+		 patientManager.patientList.get(selectedIndex).setAddress(newEditFrame.addressF.getText());
+		 patientManager.patientList.get(selectedIndex).setHeight(Integer.parseInt(newEditFrame.heightF.getText()));
+		 patientManager.patientList.get(selectedIndex).setWeight(Integer.parseInt(newEditFrame.weightF.getText()));
+		 patientManager.patientList.get(selectedIndex).setBloodPressure(Integer.parseInt(newEditFrame.bloodPressureF.getText()));
+		 patientManager.patientList.get(selectedIndex).setCholesterol(Integer.parseInt(newEditFrame.cholesterolF.getText()));
+		 patientManager.patientList.get(selectedIndex).setVaccinations(newEditFrame.vaccinationsF.getText());
+		 patientManager.patientList.get(selectedIndex).setConditions(newEditFrame.conditionsF.getText());
     }
 
     public void addActionEvent() {
@@ -103,7 +114,7 @@ public class Home extends JFrame implements ActionListener
         addPatient2.addActionListener(this);
         editPatient.addActionListener(this);
         deletePatient2.addActionListener(this);
-        addAppointment.addActionListener(this);
+        viewAppointment.addActionListener(this);
         list.getSelectionModel().addListSelectionListener(ee -> {
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
@@ -178,10 +189,71 @@ public class Home extends JFrame implements ActionListener
             }
         }
        
-       if (e.getSource() == editPatient) 
-       {
-        	
-       }
+        if (e.getSource() == editPatient) 
+        {
+            Patient editPatient;
+            int patientDOB = 0;
+            int patientID = 0;
+            String patientName = "?";
+            boolean isEmptyFields = false;
+            
+            //If any field is empty, set isEmptyFields flag to true
+            if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
+            {
+            	// Display error message if there are empty fields
+            	isEmptyFields = true;
+            	info.setText("Please fill all fields");
+            }
+
+            // If all fields are filled, try to add 
+            if(!isEmptyFields) {
+            	try {
+	        		patientName = textField1.getText();
+	        		patientDOB = Integer.parseInt(textField2.getText());
+	        		patientID = Integer.parseInt(textField3.getText());
+            		editPatient = new Patient();
+            		for(int i = 0; i < patientManager.patientList.size(); i++)
+            		{           			
+            			if (patientManager.patientExists(patientName, patientDOB, patientID) > -1)
+            			{
+            				JOptionPane.showMessageDialog(this, "Please Enter Additional Patient Information");
+	                        //super.setVisible(false);
+	                        EditPatientFrame newEditFrame = new EditPatientFrame(editPatient);
+	                        newEditFrame.setTitle("Patient Details");
+	                        newEditFrame.setVisible(true);
+	                        newEditFrame.setBounds(700, 400, 600, 700);
+	                        newEditFrame.setResizable(false);
+	                         
+	                     	int selectedIndex = list.getSelectedIndex();
+	                    	if (selectedIndex != -1) 
+	                    	{
+	                    		newEditFrame.editButton.addActionListener(new ActionListener() 
+		                        {
+		                        	 public void actionPerformed(ActionEvent e) 
+		                        	 {
+		                        		 //listModel.removeElement(listModel.lastElement());
+		                        		 //patientManager.removePatientIndex(patientManager.patientList.size() - 1);
+		                        		 //editPatient(selectedIndex, newEditFrame);
+		                        		 patientManager.patientList.get(selectedIndex).setAddress(newEditFrame.addressF.getText());
+		                        		 patientManager.patientList.get(selectedIndex).setHeight(Integer.parseInt(newEditFrame.heightF.getText()));
+		                        		 patientManager.patientList.get(selectedIndex).setWeight(Integer.parseInt(newEditFrame.weightF.getText()));
+		                        		 patientManager.patientList.get(selectedIndex).setBloodPressure(Integer.parseInt(newEditFrame.bloodPressureF.getText()));
+		                        		 patientManager.patientList.get(selectedIndex).setCholesterol(Integer.parseInt(newEditFrame.cholesterolF.getText()));
+		                        		 patientManager.patientList.get(selectedIndex).setVaccinations(newEditFrame.vaccinationsF.getText());
+		                        		 patientManager.patientList.get(selectedIndex).setConditions(newEditFrame.conditionsF.getText());
+		                        	 }
+		                        });
+	                    	}
+            			} 
+            		}
+            	}//end of try
+                catch (NumberFormatException E) {
+
+                	info.setText("Please enter integer values for Date of Birth and ID.");
+                }
+            }
+        }
+
 
        if (e.getSource() == deletePatient2) 
        {
@@ -193,14 +265,14 @@ public class Home extends JFrame implements ActionListener
         		info.setText("Number of Patients: " + patientManager.patientList.size());
         	}
        }
-       if (e.getSource() == addAppointment) 
+       if (e.getSource() == viewAppointment) 
        {
-           JOptionPane.showMessageDialog(this, "Please Enter Appointment Information");
+           JOptionPane.showMessageDialog(this, "Opening Appointment List");
            //super.setVisible(false);
-           AddAppointmentFrame newAppt = new AddAppointmentFrame();
+           ViewPastAppointmentsFrame newAppt = new ViewPastAppointmentsFrame();
            newAppt.setTitle("Appointment Details");
            newAppt.setVisible(true);
-           newAppt.setBounds(700, 400, 600, 400);
+           newAppt.setBounds(800, 500, 600, 400);
            newAppt.setResizable(false);           
        }
     }
