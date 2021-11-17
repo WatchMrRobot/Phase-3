@@ -76,12 +76,26 @@ public class LoginFrame extends JFrame implements ActionListener {
             if (userText.equalsIgnoreCase("A") && pwdText.equalsIgnoreCase("1")) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 super.setVisible(false);
-                Home newHome = new Home();
-                newHome.setTitle("Patient Management System");
-                newHome.setVisible(true);
-                newHome.setBounds(700, 400, 900, 600);
-                newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newHome.setResizable(false);
+                if (cb.getSelectedItem() == "Patient")
+                {
+                	PatientHome newHome = new PatientHome();
+                    newHome.setTitle("Patient Management System (PATIENT)");
+                    newHome.setVisible(true);
+                    newHome.setBounds(700, 400, 900, 600);
+                    newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newHome.setResizable(false);
+                }
+                else
+                {
+                	Home newHome = new Home();
+                    newHome.setTitle("Patient Management System (STAFF)");
+                    newHome.setVisible(true);
+                    newHome.setBounds(700, 400, 900, 600);
+                    newHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newHome.setResizable(false);
+                }
+                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }
