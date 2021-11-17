@@ -27,6 +27,7 @@ public class Home extends JFrame implements ActionListener
 {
     Container container = getContentPane();
     JButton openPatient = new JButton("Upload patient files");
+    JButton viewAppointments = new JButton("View Past Appointments");
     JButton addPatient = new JButton("Add Patient");
     JButton editPatient = new JButton("Edit Patient");
     JButton addPatient2 = new JButton("Add Patient");
