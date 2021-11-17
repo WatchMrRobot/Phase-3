@@ -65,6 +65,7 @@ public class Home extends JFrame implements ActionListener
 	
     public void setPos() {
         openPatient.setBounds(10, 5, 200, 35);
+	viewAppointments.setBounds(220, 5, 200, 35);
         addPatient.setBounds(220, 5, 200, 35);
         editPatient.setBounds(430, 5, 200, 35);
         deletePatient.setBounds(640, 5, 200, 35); 
@@ -87,6 +88,7 @@ public class Home extends JFrame implements ActionListener
 
     public void addComponentsToContainer() {
         container.add(openPatient);
+	container.add(viewAppointments);
         container.add(addPatient);
         container.add(editPatient);
         container.add(deletePatient);
@@ -110,6 +112,7 @@ public class Home extends JFrame implements ActionListener
         editPatient.addActionListener(this);
         deletePatient2.addActionListener(this);
         addAppointment.addActionListener(this);
+	viewAppointments.addActionListener(this);
         list.getSelectionModel().addListSelectionListener(ee -> {
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
