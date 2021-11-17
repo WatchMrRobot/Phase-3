@@ -71,7 +71,7 @@ public class AddAppointmentFrame extends JFrame implements ActionListener {
 	        container.add(addButton);
 	        container.add(cancelButton);
 	        container.add(info);
-	        //container.add(cb);
+	        container.add(cb);
 		}
 		
 		private void addActionEvent() 

@@ -208,7 +208,6 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     	        	info.setText("Patient was not added - Patient already exists. ");
     	        }
             }
-
         }
 		
         if (e.getSource() == cancelButton) {
