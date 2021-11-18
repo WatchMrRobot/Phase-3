@@ -36,9 +36,9 @@ public class Home extends JFrame implements ActionListener
     DefaultListModel<Patient> listModel = new DefaultListModel<>();
     JList<Patient> list = new JList(listModel);
     JLabel listL = new JLabel("Patient List");
-	JTextField textField1 = new JTextField();
-  	JTextField textField2 = new JTextField();
-  	JTextField textField3 = new JTextField();
+	JTextField nameL = new JTextField();
+  	JTextField dobL2 = new JTextField();
+  	JTextField idL2 = new JTextField();
   	JLabel info = new JLabel("WELCOME!");
   	JLabel listHeader = new JLabel();
   	JLabel label = new JLabel("Test");
@@ -76,9 +76,9 @@ public class Home extends JFrame implements ActionListener
     	label1.setBounds(430, 150, 200, 35);
     	label2.setBounds(430, 200, 200, 35);
     	label3.setBounds(430, 250, 200, 35);
-    	textField1.setBounds(640, 150, 200, 35);
-    	textField2.setBounds(640, 200, 200, 35);
-    	textField3.setBounds(640, 250, 200, 35);
+    	nameL.setBounds(640, 150, 200, 35);
+    	dobL2.setBounds(640, 200, 200, 35);
+    	idL2.setBounds(640, 250, 200, 35);
         addPatient2.setBounds(640, 300, 200, 35);
         deletePatient2.setBounds(430, 300, 200, 35);
     }
@@ -93,9 +93,9 @@ public class Home extends JFrame implements ActionListener
         container.add(label1);
         container.add(label2);
         container.add(label3);
-        container.add(textField1);
-        container.add(textField2);
-        container.add(textField3);
+        container.add(nameL);
+        container.add(dobL2);
+        container.add(idL2);
         container.add(addPatient2);
         container.add(deletePatient2);
         container.add(viewAppointment);
@@ -118,6 +118,7 @@ public class Home extends JFrame implements ActionListener
         editPatient.addActionListener(this);
         deletePatient2.addActionListener(this);
         viewAppointment.addActionListener(this);
+        logout.addActionListener(this);
         list.getSelectionModel().addListSelectionListener(ee -> {
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
@@ -175,7 +176,7 @@ public class Home extends JFrame implements ActionListener
             boolean isEmptyFields = false;
             
             //If any field is empty, set isEmptyFields flag to true
-            if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
+            if (nameL.getText().equals("") || dobL2.getText().equals("") || idL2.getText().equals(""))
             {
             	// Display error message if there are empty fields
             	isEmptyFields = true;
@@ -185,10 +186,10 @@ public class Home extends JFrame implements ActionListener
             // If all fields are filled, try to add 
             if(!isEmptyFields) {
             	try {
-            		int newIndex = 0;
-	        		newName = textField1.getText();
-	        		newDOB = Integer.parseInt(textField2.getText());
-	        		newID = Integer.parseInt(textField3.getText());
+	        		newName = nameL.getText();
+	        		newDOB = Integer.parseInt(dobL2.getText());
+	        		newID = Integer.parseInt(idL2.getText());
+
             		newPatient = new Patient();
             		for(int i = 0; i < patientManager.patientList.size(); i++)
             		{           			
@@ -242,7 +243,7 @@ public class Home extends JFrame implements ActionListener
             boolean isEmptyFields = false;
             
             //If any field is empty, set isEmptyFields flag to true
-            if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
+            if (nameL.getText().equals("") || dobL2.getText().equals("") || idL2.getText().equals(""))
             {
             	// Display error message if there are empty fields
             	isEmptyFields = true;
@@ -252,9 +253,9 @@ public class Home extends JFrame implements ActionListener
             // If all fields are filled, try to add 
             if(!isEmptyFields) {
             	try {
-	        		patientName = textField1.getText();
-	        		patientDOB = Integer.parseInt(textField2.getText());
-	        		patientID = Integer.parseInt(textField3.getText());
+	        		patientName = nameL.getText();
+	        		patientDOB = Integer.parseInt(dobL2.getText());
+	        		patientID = Integer.parseInt(idL2.getText());
             		editPatient = new Patient();
             		for(int i = 0; i < patientManager.patientList.size(); i++)
             		{           			
@@ -328,5 +329,18 @@ public class Home extends JFrame implements ActionListener
            newAppt.setBounds(800, 500, 600, 400);
            newAppt.setResizable(false);           
        }
-    
-       }}			
+       if (e.getSource() == logout) 
+       {
+           JOptionPane.showMessageDialog(this, "Logging out now.");
+           super.setVisible(false);
+           LoginFrame frame = new LoginFrame();
+           frame.setTitle("Patient Portal");
+           frame.setVisible(true);
+           frame.setBounds(900, 400, 600, 400);
+           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+           frame.setResizable(false);
+       }
+    }
+}
+
+

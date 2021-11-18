@@ -22,13 +22,16 @@ public class PatientHome extends JFrame implements ActionListener
 	
     Container container = getContentPane();
     JButton editPatient = new JButton("Edit Patient");
+    JButton logout = new JButton("Logout");
     JButton uploadDetails = new JButton("Verify ID");
+
   	JLabel info = new JLabel("WELCOME!");
   	JLabel listHeader = new JLabel();
   	JLabel label = new JLabel("Test");
   	JLabel nameL = new JLabel("Verify ID to see Details");
   	JLabel dobL = new JLabel("DOB: ");
   	JLabel dobL2 = new JLabel("");
+
   	JLabel idL = new JLabel("ID: ");
   	JLabel idL2 = new JLabel("");
   	JLabel heightL = new JLabel("Height: ");
@@ -65,9 +68,11 @@ public class PatientHome extends JFrame implements ActionListener
 	
     public void setPos() {
         editPatient.setBounds(10, 10, 200, 35);
+        logout.setBounds(640, 5, 200, 35);
         uploadDetails.setBounds(220, 10, 200, 35);
         ID.setBounds(430, 10, 200, 35);
         
+
     	info.setBounds(400, 50, 450, 35);
     	nameL.setBounds(10, 50, 300, 35);
     	dobL.setBounds(10, 70, 200, 35);
@@ -109,7 +114,10 @@ public class PatientHome extends JFrame implements ActionListener
     }
 
     public void addComponentsToContainer() {
-       // container.add(editPatient);
+
+   //     container.add(editPatient);
+        container.add(logout);
+
         container.add(info);
         container.add(nameL);
         container.add(dobL);
@@ -138,18 +146,64 @@ public class PatientHome extends JFrame implements ActionListener
 
     public void addActionEvent() {
         editPatient.addActionListener(this);
+        logout.addActionListener(this);
+
         uploadDetails.addActionListener(this);
-        
+
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == editPatient) {
-            Patient newPatient;
-            int newDOB = 0;
-            int newID = 0;
-            String newName = "?";
+        if (e.getSource() == editPatient) 
+        {
+            Patient editPatient;
+            int patientDOB = 0;
+            int patientID = 0;
+            String patientName = "?";
             boolean isEmptyFields = false;
+            
+            //If any field is empty, set isEmptyFields flag to true
+            
+            if (nameL.getText().equals("") || dobL2.getText().equals("") || idL2.getText().equals(""))
+            {
+            	// Display error message if there are empty fields
+            	isEmptyFields = true;
+            	info.setText("Please fill all fields");
+            }
+			
+            // If all fields are filled, try to add 
+            if(!isEmptyFields) {
+            	try {
+	        		patientName = nameL.getText();
+	        		patientDOB = Integer.parseInt(dobL2.getText());
+	        		patientID = Integer.parseInt(idL2.getText());
+            		editPatient = new Patient();
+
+    				JOptionPane.showMessageDialog(this, "Please Enter Additional Patient Information");
+                    //super.setVisible(false);
+                    EditPatientFrame newEditFrame = new EditPatientFrame(editPatient);
+                    newEditFrame.setTitle("Patient Details");
+                    newEditFrame.setVisible(true);
+                    newEditFrame.setBounds(700, 400, 600, 700);
+                    newEditFrame.setResizable(false);
+
+            	}//end of try
+                catch (NumberFormatException E) {
+
+                	info.setText("Please enter integer values for Date of Birth and ID.");
+                }
+            }
+        }
+        if (e.getSource() == logout) 
+        {
+            JOptionPane.showMessageDialog(this, "Logging out now.");
+            super.setVisible(false);
+            LoginFrame frame = new LoginFrame();
+            frame.setTitle("Patient Portal");
+            frame.setVisible(true);
+            frame.setBounds(900, 400, 600, 400);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
         }
         if (e.getSource() == uploadDetails)
         {
