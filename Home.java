@@ -1,28 +1,32 @@
 package application;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.awt.Color;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import java.util.Scanner;
+
+import application.PatientManagement;
 
 public class Home extends JFrame implements ActionListener 
 {
     Container container = getContentPane();
-    JButton openPatient = new JButton("Open Patient");
+    JButton openPatient = new JButton("Upload patient files");
     JButton addPatient = new JButton("Add Patient");
     JButton editPatient = new JButton("Edit Patient");
     JButton addPatient2 = new JButton("Add Patient");
@@ -42,8 +46,9 @@ public class Home extends JFrame implements ActionListener
   	JLabel label2 = new JLabel("Date of Birth:");
   	JLabel label3 = new JLabel("ID Number:");
   	JPanel panel = new JPanel();
+  	WriteToFile x = new WriteToFile();
+  	int test = 0;
 	public static PatientManagement patientManager = new PatientManagement();
-	
 	Home()
 	{
         setLayoutManager();
@@ -76,7 +81,6 @@ public class Home extends JFrame implements ActionListener
     	idL2.setBounds(640, 250, 200, 35);
         addPatient2.setBounds(640, 300, 200, 35);
         deletePatient2.setBounds(430, 300, 200, 35);
-
     }
 
     public void addComponentsToContainer() {
@@ -119,10 +123,48 @@ public class Home extends JFrame implements ActionListener
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
     }
+    public void ReadFile() throws FileNotFoundException 
+	{
+		File read = new File("Patient.txt");
+		if(read.exists() == true && test == 0)
+		{
+			Scanner reader = new Scanner(read);
+			while(reader.hasNextLine() != false)
+			{
+				Patient ReturningPatient = new Patient();
+				String name = reader.nextLine();
+				String DOB = reader.nextLine();
+				String ID = reader.nextLine();
+				int Date = Integer.parseInt(DOB);
+				int Identification = Integer.parseInt(ID);
+				ReturningPatient.setName(name);
+				ReturningPatient.setDOB(Date);
+				ReturningPatient.setID(Identification);
+				patientManager.addPatient(ReturningPatient);
+				listModel.addElement(ReturningPatient);
+			}
+			info.setText("Patient records have been uploaded");
+			reader.close();
+			test = 1;
+		}
+		else if(read.exists() != true)
+		{
+			info.setText("No records available to upload");
+		}
+		else if(test == 1)
+		{
+			info.setText("Patient files have already been uploaded.");
+		}
+	}
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == openPatient) {
+        	   try {
+					ReadFile();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 
         }
 
@@ -147,6 +189,7 @@ public class Home extends JFrame implements ActionListener
 	        		newName = nameL.getText();
 	        		newDOB = Integer.parseInt(dobL2.getText());
 	        		newID = Integer.parseInt(idL2.getText());
+
             		newPatient = new Patient();
             		for(int i = 0; i < patientManager.patientList.size(); i++)
             		{           			
@@ -154,6 +197,7 @@ public class Home extends JFrame implements ActionListener
             			{
             				throw new Exception();
             			} 
+            			
             		} 
             		newPatient.setName(newName);
             		newPatient.setDOB(newDOB);
@@ -184,11 +228,12 @@ public class Home extends JFrame implements ActionListener
                 } 
                 catch (Exception E) {
                     // Catches generic exception and displays message
-                	info.setText("Patient was not added - Patient already exists. ");
+                	info.setText("Patient was not added - Patient ID duplicate. ");
                 }
             }
         }
        
+
         if (e.getSource() == editPatient) 
         {
             Patient editPatient;
@@ -254,12 +299,21 @@ public class Home extends JFrame implements ActionListener
             }
         }
 
-
        if (e.getSource() == deletePatient2) 
        {
         	int selectedIndex = list.getSelectedIndex();
         	if (selectedIndex != -1) 
         	{
+        		Patient temp;
+        		temp = listModel.getElementAt(list.getSelectedIndex());
+        		try {
+					x.DeletePatient(temp.getID());
+					x.DeleteFromPatientFile(temp.getName(), temp.getID());
+    		        x.DeleteLogin(temp.getName());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		listModel.removeElementAt(list.getSelectedIndex());
         		patientManager.removePatientIndex(selectedIndex);
         		info.setText("Number of Patients: " + patientManager.patientList.size());
@@ -288,4 +342,5 @@ public class Home extends JFrame implements ActionListener
        }
     }
 }
+
 

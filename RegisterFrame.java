@@ -1,22 +1,20 @@
 package application;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +23,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+
 
 public class RegisterFrame extends JFrame implements ActionListener {
 
@@ -100,7 +99,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
 	}
 	
 	private void addActionEvent() {
-        addButton.addActionListener(this);
+        addButton.addActionListener(this);	
         cancelButton.addActionListener(this);
         show.addActionListener(this);
 	}
@@ -123,20 +122,20 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if(!isEmptyFields) {
             	try 
             	{
-    		        String userText;
-    		        String pwdText;
-    		        userText = userF.getText();
-    		        pwdText = passF.getText();
-    		        String nameText = nameF.getText();
-    		        int DOBText = Integer.parseInt(DOBF.getText());
-    		        int IDText = Integer.parseInt(IDF.getText());
-    		        String addressText = addressF.getText();
-    		        File file = new File("PatientLogin.txt");
-    		        FileWriter fr = new FileWriter(file, true);
-    		        BufferedWriter br = new BufferedWriter(fr);
-    		        br.write(userText+ " "+pwdText+ "\n");
-    		        br.close();
-    		        fr.close();
+    		       // String userText;
+    		        //String pwdText;
+    		        //userText = userF.getText();
+    		        //pwdText = passF.getText();
+    		        //String nameText = nameF.getText();
+    		        //int DOBText = Integer.parseInt(DOBF.getText());
+    		        //int IDText = Integer.parseInt(IDF.getText());
+    		        //String addressText = addressF.getText();
+    		        //File file = new File("PatientLogin.txt");
+    		        //FileWriter fr = new FileWriter(file, true);
+    		        //BufferedWriter br = new BufferedWriter(fr);
+    		        //br.write("");
+    		        //br.close();
+    		        //fr.close();
     		        
     	            JOptionPane.showMessageDialog(this, "Account Added to Database");
     	            super.setVisible(false);

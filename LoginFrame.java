@@ -15,8 +15,8 @@ public class LoginFrame extends JFrame implements ActionListener {
     Container container = getContentPane();
     JLabel userL = new JLabel("USERNAME");
     JLabel passL = new JLabel("PASSWORD");
-    JTextField userF = new JTextField("A");
-    JPasswordField passF = new JPasswordField("1");
+    JTextField userF = new JTextField("Jesus");
+    JPasswordField passF = new JPasswordField("Carrera");
     JButton loginButton = new JButton("LOGIN");
     JButton registerButton = new JButton("REGISTER");
     JCheckBox show = new JCheckBox("Show Password");
@@ -24,7 +24,7 @@ public class LoginFrame extends JFrame implements ActionListener {
   	String[] choices = { "Patient", "Doctor", "Nurse"};
     final JComboBox<String> cb = new JComboBox<String>(choices);
     
-    LoginFrame() {
+    public LoginFrame() {
         setLayoutManager();
         setPos();
         addComponentsToContainer();
@@ -69,7 +69,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
         if (e.getSource() == loginButton) {
             String userText;
             String pwdText;
@@ -77,6 +77,13 @@ public class LoginFrame extends JFrame implements ActionListener {
             pwdText = passF.getText();
             File file = new File("AdminLogin.txt");
             File file2 = new File("PatientLogin.txt");
+    		try {
+				PrintWriter patient = new PrintWriter(new FileWriter(file2, true));
+	    		patient.write("");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
             int test =0;
             try {
 				Scanner scanner = new Scanner(file);
@@ -89,8 +96,6 @@ public class LoginFrame extends JFrame implements ActionListener {
 					//It then checks to see if it is in the PatientLogin.txt file
 					while(scanner2.hasNextLine()) {
 						String currTest = scanner2.nextLine();
-						System.out.println(currTest);
-						System.out.println(input);
 						if(input.equals(currTest)) {
 							test =1;
 							break;
@@ -100,8 +105,6 @@ public class LoginFrame extends JFrame implements ActionListener {
 	            {
 					while(scanner.hasNextLine()) {
 						String currTest = scanner.nextLine();
-						System.out.println(currTest);
-						System.out.println(input);
 						if(input.equals(currTest)) {
 							test =1;
 							break;
