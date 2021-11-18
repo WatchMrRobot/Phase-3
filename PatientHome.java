@@ -29,7 +29,7 @@ public class PatientHome extends JFrame implements ActionListener
   	JLabel label = new JLabel("Test");
   	JLabel nameL = new JLabel("JOHN SMITH");
   	JLabel dobL = new JLabel("DOB: ");
-  	JLabel dobL2 = new JLabel("01/01/2000");
+  	JLabel dobL2 = new JLabel("01012000");
   	JLabel idL = new JLabel("ID: ");
   	JLabel idL2 = new JLabel("123456");
   	JLabel heightL = new JLabel("Height: ");
@@ -140,12 +140,45 @@ public class PatientHome extends JFrame implements ActionListener
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == editPatient) {
-            Patient newPatient;
-            int newDOB = 0;
-            int newID = 0;
-            String newName = "?";
+        if (e.getSource() == editPatient) 
+        {
+            Patient editPatient;
+            int patientDOB = 0;
+            int patientID = 0;
+            String patientName = "?";
             boolean isEmptyFields = false;
+            
+            //If any field is empty, set isEmptyFields flag to true
+            
+            if (nameL.getText().equals("") || dobL2.getText().equals("") || idL2.getText().equals(""))
+            {
+            	// Display error message if there are empty fields
+            	isEmptyFields = true;
+            	info.setText("Please fill all fields");
+            }
+			
+            // If all fields are filled, try to add 
+            if(!isEmptyFields) {
+            	try {
+	        		patientName = nameL.getText();
+	        		patientDOB = Integer.parseInt(dobL2.getText());
+	        		patientID = Integer.parseInt(idL2.getText());
+            		editPatient = new Patient();
+
+    				JOptionPane.showMessageDialog(this, "Please Enter Additional Patient Information");
+                    //super.setVisible(false);
+                    EditPatientFrame newEditFrame = new EditPatientFrame(editPatient);
+                    newEditFrame.setTitle("Patient Details");
+                    newEditFrame.setVisible(true);
+                    newEditFrame.setBounds(700, 400, 600, 700);
+                    newEditFrame.setResizable(false);
+
+            	}//end of try
+                catch (NumberFormatException E) {
+
+                	info.setText("Please enter integer values for Date of Birth and ID.");
+                }
+            }
         }
         if (e.getSource() == logout) 
         {
