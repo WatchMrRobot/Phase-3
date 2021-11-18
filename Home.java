@@ -31,7 +31,7 @@ public class Home extends JFrame implements ActionListener
     JButton editPatient = new JButton("Edit Patient");
     JButton addPatient2 = new JButton("Add Patient");
     JButton deletePatient2 = new JButton("Delete Patient");
-    JButton deletePatient = new JButton("Delete Patient");
+    JButton logout = new JButton("Logout");
     JButton viewAppointment = new JButton("View Appointments");
     DefaultListModel<Patient> listModel = new DefaultListModel<>();
     JList<Patient> list = new JList(listModel);
@@ -64,9 +64,9 @@ public class Home extends JFrame implements ActionListener
 	
     public void setPos() {
         openPatient.setBounds(10, 5, 200, 35);
-        addPatient.setBounds(220, 5, 200, 35);
+        viewAppointment.setBounds(220, 5, 200, 35);
         editPatient.setBounds(430, 5, 200, 35);
-        deletePatient.setBounds(640, 5, 200, 35); 
+        logout.setBounds(640, 5, 200, 35); 
     	listL.setBounds(10,70, 150, 35);
     	info.setBounds(300,70, 450, 35);
     	Font font = new Font("Verdana", Font.BOLD, 15);
@@ -81,14 +81,12 @@ public class Home extends JFrame implements ActionListener
     	textField3.setBounds(640, 250, 200, 35);
         addPatient2.setBounds(640, 300, 200, 35);
         deletePatient2.setBounds(430, 300, 200, 35);
-        viewAppointment.setBounds(430, 350, 200, 35);
     }
 
     public void addComponentsToContainer() {
         container.add(openPatient);
-        container.add(addPatient);
         container.add(editPatient);
-        container.add(deletePatient);
+        container.add(logout);
         container.add(list);
         container.add(info);
         container.add(listL);
@@ -310,6 +308,7 @@ public class Home extends JFrame implements ActionListener
         		try {
 					x.DeletePatient(temp.getID());
 					x.DeleteFromPatientFile(temp.getName(), temp.getID());
+    		        x.DeleteLogin(temp.getName());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -330,4 +329,4 @@ public class Home extends JFrame implements ActionListener
            newAppt.setResizable(false);           
        }
     
-       }}	
+       }}			

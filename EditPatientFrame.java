@@ -6,6 +6,10 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,7 +26,7 @@ public class EditPatientFrame extends JFrame implements ActionListener {
 
     JLabel nameL = new JLabel("Name");
     JLabel addressL = new JLabel("ADDRESS");
-
+    JLabel IdentificationL = new JLabel("Confirm ID");
     JLabel heightL = new JLabel("HEIGHT(inches)");
     JLabel weightL = new JLabel("WEIGHT(lbs)");
     JLabel bloodPressureL = new JLabel("BLOOD PRESSURE");
@@ -33,12 +37,13 @@ public class EditPatientFrame extends JFrame implements ActionListener {
     JLabel ActiveIllnessesL = new JLabel("Active Illnesses");
     
     
-    JTextField nameF = new JTextField("N");
+    JTextField nameF = new JTextField("");
 
-    JTextField addressF = new JTextField("ADDRESS");
+    JTextField addressF = new JTextField("");
     
     JTextField heightF = new JTextField("HEIGHT");
     JTextField weightF = new JTextField("WEIGHT");
+    JTextField IdentificationF = new JTextField();
     JTextField bloodPressureF = new JTextField("BLOOD PRESSURE");
     JTextField cholesterolF = new JTextField("CHOLESTEROL");
     JTextField vaccinationsF = new JTextField("VACCINATIONS");
@@ -88,7 +93,7 @@ public class EditPatientFrame extends JFrame implements ActionListener {
 	private void setPos() {
 
         nameL.setBounds(150, 100, 100, 35);
-       addressL.setBounds(150, 140, 100, 35);        
+        addressL.setBounds(150, 140, 100, 35);        
         heightL.setBounds(150, 180, 100, 35);
         weightL.setBounds(150, 220, 100, 35);
         bloodPressureL.setBounds(150, 260, 100, 35);
@@ -96,6 +101,7 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         vaccinationsL.setBounds(150, 340, 100, 35);
         conditionsL.setBounds(150, 380, 100, 35);
         ActiveIllnessesL.setBounds(150, 420, 100, 35);
+        IdentificationL.setBounds(150, 60, 100, 35);
         
         
         nameF.setBounds(250, 100, 175, 35);
@@ -107,6 +113,8 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         vaccinationsF.setBounds(250, 340, 175, 35);
         conditionsF.setBounds(250, 380, 175, 35);
         ActiveIllnessesF.setBounds(250, 420, 175, 35);
+        IdentificationF.setBounds(250, 60, 175, 35);
+
 
         
         
@@ -130,8 +138,9 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         container.add(cholesterolL);
         container.add(vaccinationsL);
         container.add(conditionsL);
-
         container.add(ActiveIllnessesL);
+        container.add(IdentificationL);
+        
         
         
         container.add(nameF);
@@ -144,10 +153,10 @@ public class EditPatientFrame extends JFrame implements ActionListener {
         container.add(cholesterolF);
         container.add(vaccinationsF);
         container.add(conditionsF);
-        container.add(ActiveIllnessesF);       
+        container.add(ActiveIllnessesF);
+        container.add(IdentificationF);
         container.add(editButton);
         container.add(cancelButton);
-        container.add(info);
 	}
 	
 	private void addActionEvent() {
@@ -164,29 +173,56 @@ public class EditPatientFrame extends JFrame implements ActionListener {
             boolean isEmptyFields = false;
             
             //If any field is empty, set isEmptyFields flag to true
-            if (userF.getText().equals("") || passF.getText().equals("") || nameF.getText().equals("") || DOBF.getText().equals("") || IDF.getText().equals("") || addressF.getText().equals("") )
-            {
-            	// Display error message if there are empty fields
-            	isEmptyFields = true;
-            	info.setText("Please fill all fields");
-            }
+        
 
             // If all fields are filled, try to add 
             if(!isEmptyFields) {
             	try 
             	{
-    		        String userText = userF.getText();;
-    		        String pwdText = passF.getText();
+            		
     		        String nameText = nameF.getText();
-    		        int DOBText = Integer.parseInt(DOBF.getText());
-    		        int IDText = Integer.parseInt(IDF.getText());
     		        String addressText = addressF.getText();
     		        int heightText = Integer.parseInt(heightF.getText());
     		        int weightText = Integer.parseInt(weightF.getText());
-    		        int bloodPressureText = Integer.parseInt(bloodPressureF.getText());
-    		        int cholesterolText = Integer.parseInt(cholesterolF.getText());
+    		        String bloodPressureText = bloodPressureF.getText();
+    		        String cholesterolText = cholesterolF.getText();
     		        String vaccinationsText = vaccinationsF.getText();
     		        String conditionsText = conditionsF.getText();
+    		        String Active = ActiveIllnessesF.getText();
+    		        String num = IdentificationF.getText();
+    		        File patient = new File(num + ".txt");
+    		        File temp = new File("temporary.txt");
+    		        Scanner reader = new Scanner(patient);
+		    		PrintWriter write = new PrintWriter(new FileWriter(temp, false));
+
+    		        if(patient.exists() == true)
+    		        {
+    		        	write.write(nameText + "\n");
+    		        	String a = reader.nextLine();
+    		        	String b = reader.nextLine();
+    		        	String c = reader.nextLine();
+    		        	write.write(b + "\n");
+    		        	write.write(c + "\n");
+    		        	write.write(heightText + "\n");
+    		        	write.write(weightText + "\n");
+    		        	write.write(bloodPressureText + "\n");
+    		        	write.write(cholesterolText + "\n");
+    		        	write.write(vaccinationsText + "\n");
+    		        	write.write(conditionsText + "\n"); 
+    		        	write.write(Active + "\n");
+    		        	reader.close();
+    		        	write.close();
+    		        	PrintWriter pw = new PrintWriter(new FileWriter(patient, false));
+    		        	pw.print("");
+    		        	reader = new Scanner(temp);
+    		        	while(reader.hasNextLine() == true)
+    		        	{
+    		        		pw.write(reader.nextLine() + "\n");
+    		        	}
+    		        	pw.close();
+    		        	reader.close();
+    		      //  	temp.delete();
+    		        }
     		        
     	            JOptionPane.showMessageDialog(this, "Patient Edited in Database");
 
@@ -202,11 +238,8 @@ public class EditPatientFrame extends JFrame implements ActionListener {
     	        	info.setText("Patient was not added - Patient already exists. ");
     	        }
             }
-	        String userText = userF.getText();;
-	        String pwdText = passF.getText();
+	       
 	        String nameText = nameF.getText();
-	        int DOBText = Integer.parseInt(DOBF.getText());
-	        int IDText = Integer.parseInt(IDF.getText());
 	        String addressText = addressF.getText();
 	        int heightText = Integer.parseInt(heightF.getText());
 	        int weightText = Integer.parseInt(weightF.getText());

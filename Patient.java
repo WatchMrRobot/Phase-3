@@ -136,7 +136,7 @@ public class Patient
      {
            return ActiveIllnesses;
      }
-]
+
      public void setName(String name)
      {
            this.name = name;
@@ -190,7 +190,7 @@ public class Patient
      {
            this.ActiveIllnesses = ActiveIllnesses;
      }
-]
+
      public String toString()
      {
            return "Name: " + name + "     DOB: " + DOB + "     ID: " + ID; 
@@ -198,4 +198,3 @@ public class Patient
 
      
 }
-

@@ -122,20 +122,20 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if(!isEmptyFields) {
             	try 
             	{
-    		        String userText;
-    		        String pwdText;
-    		        userText = userF.getText();
-    		        pwdText = passF.getText();
-    		        String nameText = nameF.getText();
-    		        int DOBText = Integer.parseInt(DOBF.getText());
-    		        int IDText = Integer.parseInt(IDF.getText());
-    		        String addressText = addressF.getText();
-    		        File file = new File("PatientLogin.txt");
-    		        FileWriter fr = new FileWriter(file, true);
-    		        BufferedWriter br = new BufferedWriter(fr);
-    		        br.write(userText+ " "+pwdText+ "\n");
-    		        br.close();
-    		        fr.close();
+    		       // String userText;
+    		        //String pwdText;
+    		        //userText = userF.getText();
+    		        //pwdText = passF.getText();
+    		        //String nameText = nameF.getText();
+    		        //int DOBText = Integer.parseInt(DOBF.getText());
+    		        //int IDText = Integer.parseInt(IDF.getText());
+    		        //String addressText = addressF.getText();
+    		        //File file = new File("PatientLogin.txt");
+    		        //FileWriter fr = new FileWriter(file, true);
+    		        //BufferedWriter br = new BufferedWriter(fr);
+    		        //br.write("");
+    		        //br.close();
+    		        //fr.close();
     		        
     	            JOptionPane.showMessageDialog(this, "Account Added to Database");
     	            super.setVisible(false);

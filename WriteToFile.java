@@ -1,6 +1,8 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.io.PrintWriter;
@@ -19,13 +21,14 @@ public class WriteToFile {
 		patient.write(ID + "\n");	
 		patient.close();
 	} 
-	public void WriteToPatient(String name, String fileName, int DOB, int ID, int weight, String BP, int Cholesterol, String Vaccinations, String Conditions, String Active) throws IOException
+	public void WriteToPatient(String name, String fileName, int DOB, int ID, int height, int weight, String BP, int Cholesterol, String Vaccinations, String Conditions, String Active) throws IOException
 	{
 		File write = new File(ID +".txt");
 		PrintWriter myWriter = new PrintWriter(new FileWriter(write, true));
 		myWriter.write(name + "\n");
 		myWriter.write(DOB + "\n");
 		myWriter.write(ID + "\n");
+		myWriter.write(height + "\n");
 		myWriter.write(weight + "\n");
 		myWriter.write(BP + "\n");
 		myWriter.write(Cholesterol + "\n");
@@ -40,6 +43,45 @@ public class WriteToFile {
 	{
 		File file = new File(ID + ".txt");
 		file.delete();
+	}
+	public void WriteToLogin(String name) throws IOException
+	{
+		  File file = new File("PatientLogin.txt");
+	      FileWriter fr = new FileWriter(file, true);
+	      BufferedWriter br = new BufferedWriter(fr);
+	      br.write(name + "\n");
+	      br.close();
+	      fr.close();
+	}
+	public void DeleteLogin(String name) throws IOException
+	{
+		File Delete = new File("PatientLogin.txt");
+		File temp = new File("Temp.txt");
+		Scanner Read = new Scanner(Delete);
+		PrintWriter patient = new PrintWriter(new FileWriter(temp, true));
+		while(Read.hasNextLine())
+		{
+			String write = Read.nextLine();
+			if(write.compareTo(name) != 0)
+			{
+				patient.write(write + "\n");
+			}
+		}
+		Read.close();
+		patient.close();
+		Read = new Scanner(temp);
+		PrintWriter pw = new PrintWriter(new FileWriter(Delete, false));
+		pw.print("");
+		while(Read.hasNextLine() == true)
+		{
+			String grab = Read.nextLine();
+			pw.write(grab + "\n");
+		}
+		pw.close();
+		Read.close();
+		temp.delete();
+		
+		
 	}
 	public void DeleteFromPatientFile(String fileName, int ID) throws IOException
 	{

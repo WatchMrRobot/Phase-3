@@ -146,7 +146,7 @@ public class AddPatientFrame extends JFrame implements ActionListener {
         container.add(show);
         container.add(addButton);
         container.add(cancelButton);
-        container.add(info);
+    //    container.add(info);
 	}
 	
 	private void addActionEvent() {
@@ -188,11 +188,13 @@ public class AddPatientFrame extends JFrame implements ActionListener {
     		        int DOBText = Integer.parseInt(DOBF.getText());
     		        int IDText = Integer.parseInt(IDF.getText());
     		        int Weight = Integer.parseInt(WeightF.getText());
+    		        int Height = Integer.parseInt(HeightF.getText());
     		        String BP = BloodPressureF.getText();
     		        int Cholesterol = Integer.parseInt(CholesterolF.getText());
   
-    		        test.WriteToPatient(nameText, nameText ,DOBText,IDText, Weight, BP, Cholesterol, Vaccinations, Conditions, Active);
+    		        test.WriteToPatient(nameText, nameText ,DOBText,IDText, Height, Weight, BP, Cholesterol, Vaccinations, Conditions, Active);
     		        test.WriteToDoctors(nameText, DOBText, IDText);
+    		        test.WriteToLogin(nameText);
     		        String addressText = addressF.getText();
     	            JOptionPane.showMessageDialog(this, "Patient Added to Database");
     	            super.setVisible(false);

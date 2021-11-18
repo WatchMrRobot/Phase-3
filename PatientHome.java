@@ -1,53 +1,54 @@
 package application;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import application.Patient;
 
 public class PatientHome extends JFrame implements ActionListener 
 {
+	
     Container container = getContentPane();
     JButton editPatient = new JButton("Edit Patient");
+    JButton uploadDetails = new JButton("Verify ID");
   	JLabel info = new JLabel("WELCOME!");
   	JLabel listHeader = new JLabel();
   	JLabel label = new JLabel("Test");
-  	JLabel nameL = new JLabel("JOHN SMITH");
+  	JLabel nameL = new JLabel("Verify ID to see Details");
   	JLabel dobL = new JLabel("DOB: ");
-  	JLabel dobL2 = new JLabel("01/01/2000");
+  	JLabel dobL2 = new JLabel("");
   	JLabel idL = new JLabel("ID: ");
-  	JLabel idL2 = new JLabel("123456");
+  	JLabel idL2 = new JLabel("");
   	JLabel heightL = new JLabel("Height: ");
-  	JLabel heightL2 = new JLabel("5ft 10in");
+  	JLabel heightL2 = new JLabel("");
   	JLabel weightL = new JLabel("Weight: ");
-  	JLabel weightL2 = new JLabel("150lbs");
+  	JLabel weightL2 = new JLabel("");
   	JLabel bpL = new JLabel("Blood Pressure: ");
-  	JLabel bpL2 = new JLabel("110/80 mmHg");
+  	JLabel bpL2 = new JLabel(" mmHg");
   	JLabel cholesterolL = new JLabel("Cholesterol: ");
   	JLabel cholesterolL2 = new JLabel("Normal");
   	JLabel illnessL = new JLabel("Active Illnesses: ");
-  	JLabel illnessL2 = new JLabel("None");
+  	JLabel illnessL2 = new JLabel("");
   	JLabel conditionL = new JLabel("Conditions: ");
-  	JLabel conditionL2 = new JLabel("Leg injury");
-  	JLabel medsL = new JLabel("Medications: ");
-  	JLabel medsL2 = new JLabel("None");
+  	JLabel conditionL2 = new JLabel("");
+  	JLabel medsL = new JLabel("Vaccninations: ");
+  	JLabel medsL2 = new JLabel("");
   	JLabel appointmentL = new JLabel("Past Appointments:");
   	JLabel appointmentL2 = new JLabel("<CALL TOSTRING FROM APPOINTMENTS HERE>");
   	JPanel panel = new JPanel();
+  	JTextField ID = new JTextField();
 	
 	PatientHome()
 	{
@@ -64,6 +65,9 @@ public class PatientHome extends JFrame implements ActionListener
 	
     public void setPos() {
         editPatient.setBounds(10, 10, 200, 35);
+        uploadDetails.setBounds(220, 10, 200, 35);
+        ID.setBounds(430, 10, 200, 35);
+        
     	info.setBounds(400, 50, 450, 35);
     	nameL.setBounds(10, 50, 300, 35);
     	dobL.setBounds(10, 70, 200, 35);
@@ -105,7 +109,7 @@ public class PatientHome extends JFrame implements ActionListener
     }
 
     public void addComponentsToContainer() {
-        container.add(editPatient);
+       // container.add(editPatient);
         container.add(info);
         container.add(nameL);
         container.add(dobL);
@@ -126,12 +130,16 @@ public class PatientHome extends JFrame implements ActionListener
         container.add(conditionL2);
         container.add(medsL);
         container.add(medsL2);
-        container.add(appointmentL);
-        container.add(appointmentL2);
+    //    container.add(appointmentL);
+  //      container.add(appointmentL2);
+        container.add(uploadDetails);
+        container.add(ID);
     }
 
     public void addActionEvent() {
         editPatient.addActionListener(this);
+        uploadDetails.addActionListener(this);
+        
     }
     
     @Override
@@ -143,6 +151,45 @@ public class PatientHome extends JFrame implements ActionListener
             String newName = "?";
             boolean isEmptyFields = false;
         }
+        if (e.getSource() == uploadDetails)
+        {
+        	String num = ID.getText();
+        	File temp = new File(num + ".txt");
+        	if(temp.exists() == true)
+        	{
+				try {
+					Scanner Read = new Scanner(temp);
+					String name = Read.next();
+					String DOB = Read.next();
+					String ID = Read.next();
+					String Height = Read.next();
+					String Weight = Read.next();
+					String BP = Read.next();
+					String Cholesterol = Read.next();
+					String Vaccinations = Read.next();
+					String Conditions = Read.next();
+					String Active = Read.next();
+				    nameL.setText("Name: " + name);
+				    dobL2.setText(DOB);
+				    idL2.setText(ID);
+				    weightL2.setText(Weight);
+				    bpL2.setText( BP + " mmHg");
+				    cholesterolL2.setText(Cholesterol);
+				    medsL2.setText(Vaccinations);
+				    conditionL2.setText(Conditions);
+				    illnessL2.setText(Active);
+				    heightL2.setText(Height);
+				    
+				    
+				    
+				  	
+
+					
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        }
     }
 }
-
