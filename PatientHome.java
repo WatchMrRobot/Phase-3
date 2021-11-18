@@ -23,6 +23,7 @@ public class PatientHome extends JFrame implements ActionListener
 {
     Container container = getContentPane();
     JButton editPatient = new JButton("Edit Patient");
+    JButton logout = new JButton("Logout");
   	JLabel info = new JLabel("WELCOME!");
   	JLabel listHeader = new JLabel();
   	JLabel label = new JLabel("Test");
@@ -64,6 +65,7 @@ public class PatientHome extends JFrame implements ActionListener
 	
     public void setPos() {
         editPatient.setBounds(10, 10, 200, 35);
+        logout.setBounds(640, 5, 200, 35); 
     	info.setBounds(400, 50, 450, 35);
     	nameL.setBounds(10, 50, 300, 35);
     	dobL.setBounds(10, 70, 200, 35);
@@ -106,6 +108,7 @@ public class PatientHome extends JFrame implements ActionListener
 
     public void addComponentsToContainer() {
         container.add(editPatient);
+        container.add(logout);
         container.add(info);
         container.add(nameL);
         container.add(dobL);
@@ -132,6 +135,7 @@ public class PatientHome extends JFrame implements ActionListener
 
     public void addActionEvent() {
         editPatient.addActionListener(this);
+        logout.addActionListener(this);
     }
     
     @Override
@@ -142,6 +146,17 @@ public class PatientHome extends JFrame implements ActionListener
             int newID = 0;
             String newName = "?";
             boolean isEmptyFields = false;
+        }
+        if (e.getSource() == logout) 
+        {
+            JOptionPane.showMessageDialog(this, "Logging out now.");
+            super.setVisible(false);
+            LoginFrame frame = new LoginFrame();
+            frame.setTitle("Patient Portal");
+            frame.setVisible(true);
+            frame.setBounds(900, 400, 600, 400);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
         }
     }
 }

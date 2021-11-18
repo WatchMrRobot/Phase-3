@@ -27,7 +27,7 @@ public class Home extends JFrame implements ActionListener
     JButton editPatient = new JButton("Edit Patient");
     JButton addPatient2 = new JButton("Add Patient");
     JButton deletePatient2 = new JButton("Delete Patient");
-    JButton deletePatient = new JButton("Delete Patient");
+    JButton logout = new JButton("Logout");
     JButton viewAppointment = new JButton("View Appointments");
     DefaultListModel<Patient> listModel = new DefaultListModel<>();
     JList<Patient> list = new JList(listModel);
@@ -59,9 +59,9 @@ public class Home extends JFrame implements ActionListener
 	
     public void setPos() {
         openPatient.setBounds(10, 5, 200, 35);
-        addPatient.setBounds(220, 5, 200, 35);
+        viewAppointment.setBounds(220, 5, 200, 35);
         editPatient.setBounds(430, 5, 200, 35);
-        deletePatient.setBounds(640, 5, 200, 35); 
+        logout.setBounds(640, 5, 200, 35); 
     	listL.setBounds(10,70, 150, 35);
     	info.setBounds(300,70, 450, 35);
     	Font font = new Font("Verdana", Font.BOLD, 15);
@@ -76,14 +76,13 @@ public class Home extends JFrame implements ActionListener
     	textField3.setBounds(640, 250, 200, 35);
         addPatient2.setBounds(640, 300, 200, 35);
         deletePatient2.setBounds(430, 300, 200, 35);
-        viewAppointment.setBounds(430, 350, 200, 35);
+
     }
 
     public void addComponentsToContainer() {
         container.add(openPatient);
-        container.add(addPatient);
         container.add(editPatient);
-        container.add(deletePatient);
+        container.add(logout);
         container.add(list);
         container.add(info);
         container.add(listL);
@@ -115,6 +114,7 @@ public class Home extends JFrame implements ActionListener
         editPatient.addActionListener(this);
         deletePatient2.addActionListener(this);
         viewAppointment.addActionListener(this);
+        logout.addActionListener(this);
         list.getSelectionModel().addListSelectionListener(ee -> {
     		info.setText("Number of Patients: " + patientManager.patientList.size());
 		});
@@ -274,6 +274,17 @@ public class Home extends JFrame implements ActionListener
            newAppt.setVisible(true);
            newAppt.setBounds(800, 500, 600, 400);
            newAppt.setResizable(false);           
+       }
+       if (e.getSource() == logout) 
+       {
+           JOptionPane.showMessageDialog(this, "Logging out now.");
+           super.setVisible(false);
+           LoginFrame frame = new LoginFrame();
+           frame.setTitle("Patient Portal");
+           frame.setVisible(true);
+           frame.setBounds(900, 400, 600, 400);
+           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+           frame.setResizable(false);
        }
     }
 }
